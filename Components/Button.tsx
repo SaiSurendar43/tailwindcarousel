@@ -31,6 +31,7 @@ const Button = ({
   };
   return (
     <button className={`shadow-lg border-transparent px-2 mt-5`} type={type}>
+      <div className="">
       <div>
         {titleimg && (
           <img className="w-[210px] h-[150px] rounded-t-2xl" src={titleimg} />
@@ -53,6 +54,7 @@ const Button = ({
             <p className="text-[12px] text-white font-bold mt-1">{text5}</p>
           </div>
         </div>
+      </div>
       </div>
     </button>
   );

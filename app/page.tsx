@@ -38,11 +38,11 @@ export default function Home() {
   return (
     <main className="px-10 py-4 min-h-screen bg-black">
       <h1 className="text-white px-5 text-xl font-bold">Notable collections</h1>
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden mt-10">
       
         <div className="flex transition-transform duration-500" style={{ transform: `translateX(-${startIndex * 100}%)` }}>
           {cards.map((card, index) => (
-            <div key={index} className="mr-4">
+            <div key={index} className="mr-4 hover:-translate-y-3 transition-all duration-300">
               <Button
                 type="button"
                 titleimg={card.titleimg}
