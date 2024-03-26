@@ -36,8 +36,12 @@ export default function Home() {
       const screenWidth = window.innerWidth;
       if (screenWidth >= 1024) {
         setTranslateValue(startIndex * 102); // Set translation value for lg screens
-      } else {
-        setTranslateValue(startIndex * 130); // Set translation value for mobile screens
+      }
+      else if(screenWidth>375){
+        setTranslateValue(startIndex * 130);
+      }
+       else {
+        setTranslateValue(startIndex * 147); // Set translation value for mobile screens
       }
     }
 
@@ -136,7 +140,7 @@ export default function Home() {
   return (
     <main className="px-2 py-4 lg:min-h-screen min-h-svh max-w-screen-xl mx-auto bg-black">      
      <div className="px-6 mx-2 py-4">
-      <h1 className="text-white px-5 text-3xl lg:text-xl font-bold">Notable collections</h1>
+      <h1 className="text-white px-5 text-2xl lg:text-xl font-bold">Notable collections</h1>
       <div className="relative overflow-hidden mt-10">
         <div
           className="flex transition-transform duration-500"
@@ -162,14 +166,14 @@ export default function Home() {
         </div>
         {startIndex-1 >= 0 && (
         <button
-          className="text-white fixed top-[23%] left-2 hover:bg-[#252525] h-[260px] rounded-2xl"
+          className="text-white fixed top-52 lg:top-[23%] left-2 hover:bg-[#252525] h-[260px] rounded-2xl"
           onClick={handlePrev}
         >
           <FaChevronLeft size={25} />
         </button>)}
         {startIndex + cardWindowLength < cards.length && (
           <button
-            className="text-white fixed lg:top-28 top-52 right-5  lg:right-3 hover:bg-[#252525] h-[260px] rounded-2xl"
+            className="text-white fixed lg:top-28 top-52 right-3  lg:right-3 hover:bg-[#252525] h-[260px] rounded-2xl"
             onClick={handleNext}
           >
             <FaChevronRight className="text-center" size={25} />
