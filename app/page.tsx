@@ -38,7 +38,10 @@ export default function Home() {
         setTranslateValue(startIndex * 102); // Set translation value for lg screens
       }
       else if(screenWidth>375){
-        setTranslateValue(startIndex * 130);
+        setTranslateValue(startIndex * 135);
+      }
+      else if(screenWidth<375){
+        setTranslateValue(startIndex * 155);
       }
        else {
         setTranslateValue(startIndex * 147); // Set translation value for mobile screens
