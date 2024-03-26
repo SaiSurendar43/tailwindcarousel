@@ -169,7 +169,7 @@ export default function Home() {
         </button>)}
         {startIndex + cardWindowLength < cards.length && (
           <button
-            className="text-white fixed lg:top-28 top-52 right-3  lg:right-3 hover:bg-[#252525] h-[260px] rounded-2xl"
+            className="text-white fixed lg:top-28 top-52 right-5  lg:right-3 hover:bg-[#252525] h-[260px] rounded-2xl"
             onClick={handleNext}
           >
             <FaChevronRight className="text-center" size={25} />
