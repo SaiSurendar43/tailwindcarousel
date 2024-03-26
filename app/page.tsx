@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Image from "next/image";
 import Button from "@/Components/Button";
 import { TiTickOutline } from "react-icons/ti";
@@ -7,11 +7,53 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function Home() {
   const [startIndex, setStartIndex] = useState(0);
-  const cardWindowLength = 9; // Number of cards visible at once
+  const [cardWindowLength, setCardWindowLength] = useState(9);
+  const [translateValue, setTranslateValue] = useState(0);
+  // const cardWindowLength = 9; // Number of cards visible at once
+  useEffect(() => {
+    // Function to calculate cardWindowLength dynamically based on screen width
+    function calculateCardWindowLength() {
+      const screenWidth = window.innerWidth;
+      if (screenWidth < 768) {
+        setCardWindowLength(1); // Set cardWindowLength to 2 for smaller screens
+      } else {
+        setCardWindowLength(9); // Set cardWindowLength to 9 for larger screens
+      }
+    }
+
+    // Call the function initially and add event listener for window resize
+    calculateCardWindowLength();
+    window.addEventListener("resize", calculateCardWindowLength);
+
+    // Remove event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", calculateCardWindowLength);
+    };
+  }, []);
+
+  useEffect(() => {
+    function calculateTranslateValue() {
+      const screenWidth = window.innerWidth;
+      if (screenWidth >= 1024) {
+        setTranslateValue(startIndex * 102); // Set translation value for lg screens
+      } else {
+        setTranslateValue(startIndex * 130); // Set translation value for mobile screens
+      }
+    }
+
+    calculateTranslateValue();
+    window.addEventListener("resize", calculateTranslateValue);
+
+    return () => {
+      window.removeEventListener("resize", calculateTranslateValue);
+    };
+  }, [startIndex]);
+
+
   const cards = [
     {
       titleimg: "/card0.jpeg",
-      text1: "GREETING ME",
+      text1: "GREETING",
       text3: "0.0.2 ETH",
       text5: "0 ETH",
     },
@@ -92,13 +134,13 @@ export default function Home() {
   };
 
   return (
-    <main className="px-2 py-4 min-h-screen bg-black">
-      <div className="w-[1200px] px-1 mx-5 py-4 h-auto">
-      <h1 className="text-white px-5 text-xl font-bold">Notable collections</h1>
+    <main className="px-2 py-4 lg:min-h-screen min-h-svh max-w-screen-xl mx-auto bg-black">      
+     <div className="px-6 mx-2 py-4">
+      <h1 className="text-white px-5 text-3xl lg:text-xl font-bold">Notable collections</h1>
       <div className="relative overflow-hidden mt-10">
         <div
           className="flex transition-transform duration-500"
-          style={{ transform: `translateX(-${startIndex * 101}%)` }}
+          style={{ transform: `translateX(-${translateValue}%)` }}
         >
           {cards.map((card, index) => (
             <div
@@ -120,14 +162,14 @@ export default function Home() {
         </div>
         {startIndex-1 >= 0 && (
         <button
-          className="text-white fixed top-[23%] left-3 hover:bg-[#252525] h-[260px] rounded-2xl"
+          className="text-white fixed top-[23%] left-2 hover:bg-[#252525] h-[260px] rounded-2xl"
           onClick={handlePrev}
         >
           <FaChevronLeft size={25} />
         </button>)}
         {startIndex + cardWindowLength < cards.length && (
           <button
-            className="text-white fixed top-28 right-6 hover:bg-[#252525] h-[260px] rounded-2xl"
+            className="text-white fixed lg:top-28 top-52 right-3  lg:right-3 hover:bg-[#252525] h-[260px] rounded-2xl"
             onClick={handleNext}
           >
             <FaChevronRight className="text-center" size={25} />
